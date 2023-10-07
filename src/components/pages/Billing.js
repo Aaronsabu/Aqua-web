@@ -9,6 +9,7 @@ function Billing() {
   const [inputValue, setInputValue] = useState('');
   const [data, setData] = useState(null);
   const [billAmount, setBillAmount] = useState(null);
+  const [ComparebillAmount, setCompareBillAmount] = useState(null);
   const [compareValue, setCompareValue] = useState('');
   const [compareData, setCompareData] = useState(null);
   const [comparePressed, setComparePressed] = useState(false);
@@ -34,6 +35,16 @@ function Billing() {
 
   const handleCompareInputChange = (text) => {
     setCompareValue(text);
+    fetchCompareData(text);
+  };
+
+  const fetchCompareData = (compareMonth) => {
+    const starCountRef = ref(db, `/billing/month/${compareMonth}`);
+    onValue(starCountRef, (snapshot) => {
+      const data = snapshot.val();
+      setCompareData(data);
+      setCompareBillAmount(data * 2);
+    });
   };
 
   const handleCompareInputSubmit = () => {
@@ -53,9 +64,9 @@ function Billing() {
     if (data < compareData) {
       setComparisonText(`You have saved ${compareData - data} litres of water!`);
     } else if (data > compareData) {
-      setComparisonText(`You have used ${data - compareData} litres of water extra`);
+      setComparisonText(`Warning!! You have used ${data - compareData} litres of water extra`);
     } else {
-      setComparisonText('Water usage is the same in both months');
+      setComparisonText('Water usage is same in both months');
     }
   };
 
@@ -80,35 +91,45 @@ function Billing() {
   return (
     <div className="home-div">
       <img src={logo} alt="aqua" className="img" />
-      <h1 className="billing-h">BILLING HISTORY</h1>
-      <p className='para'>ENTER A MONTH:</p>
-      <input
-        type="text"
-        className="input"
-        value={inputValue}
-        onChange={(e) => handleInputChange(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') {
-            handleInputSubmit();
-          }
-        }}
-      />
-      <p className='para'>LITRES OF WATER USED:</p>
-      <input
-        value={data !== null ? data.toString() : ''}
-        contentEditable={false}
-      />
-      <p className='para'>BILL AMOUNT(Rs):</p>
-      <input
-        value={billAmount !== null ? billAmount.toString() : ''}
-        contentEditable={false}
-      />
-      <br />
-      <button onClick={toggleCompareInput}>Compare</button>
-      {showCompareInput && (
-        <div>
-          <p className='para'>ENTER A MONTH TO COMPARE:</p>
+      <h1 className="heading">BILLING HISTORY</h1>
+      <div className="input-container">
+        <div className="input-group">
+          <p className='para'>ENTER A MONTH:</p>
           <input
+            type="text"
+            className="input"
+            value={inputValue}
+            onChange={(e) => handleInputChange(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                handleInputSubmit();
+              }
+            }}
+          />
+        </div>
+        <div className="input-group">
+          <p className='para'>LITRES OF WATER USED:</p>
+          <input className='input'
+            value={data !== null ? data.toString() : ''}
+            contentEditable={false}
+          />
+        </div>
+        <div className="input-group">
+          <p className='para'>BILL AMOUNT(Rs):</p>
+          <input className='input'
+            value={billAmount !== null ? billAmount.toString() : ''}
+            contentEditable={false}
+          />
+        </div>
+      </div>
+      <button onClick={toggleCompareInput} className="btn-custom ">
+          Compare
+        </button>
+      {showCompareInput && (
+        <div className="input-container">
+        <div className='input-group'>
+          <p className='para'>ENTER A MONTH TO COMPARE:</p>
+          <input className='input'
             type="text"
             value={compareValue}
             onChange={(e) => handleCompareInputChange(e.target.value)}
@@ -118,7 +139,22 @@ function Billing() {
               }
             }}
           />
-          <p className='para'>{comparisonText}</p>
+          </div>
+          <div className="input-group">
+          <p className='para'>LITRES OF WATER USED:</p>
+          <input className='input'
+            value={compareData !== null ? compareData.toString() : ''}
+            contentEditable={false}
+          />
+        </div>
+        <div className="input-group">
+          <p className='para'>BILL AMOUNT(Rs):</p>
+          <input className='input'
+            value={ComparebillAmount !== null ? ComparebillAmount.toString() : ''}
+            contentEditable={false}
+          />
+        </div>
+          <p className='comparison-text'>{comparisonText}</p>
         </div>
       )}
     </div>
