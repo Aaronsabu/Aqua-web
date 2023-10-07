@@ -24,6 +24,17 @@ html, body {
   background-color: transparent;
   border: 2px solid grey;
   border-radius: 20px; /* Grey outline */
+  font-size: larger;
+  color: aqua; /* Blue text */
+  padding: 10px 20px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.btn-custom-sub {
+  background-color: transparent;
+  border: 2px solid grey;
+  border-radius: 20px; /* Grey outline */
   color: aqua; /* Blue text */
   padding: 10px 20px;
   margin: 5px;
@@ -34,10 +45,15 @@ html, body {
 .button-container {
   display: flex;
   justify-content:space-between; /* Space between buttons */
+  padding-top: 2%;
 }
 
 .btn-custom.control-button {
   margin-left: 30px; /* Adjust this value as needed */
+}
+
+.additional-buttons {
+  padding-top: 2%;
 }
 
 .input-container {
@@ -63,6 +79,46 @@ html, body {
   margin-bottom: 5px;
   color: aqua;
 }
+
+/* App.css */
+
+.monitor-container {
+  display: flex;
+  background-color: black;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 5%px;
+}
+
+.monitor-heading {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.gauge-container {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  width: 100%;
+}
+
+.gauge {
+  padding: 2%;
+  text-align: center; /* Add spacing between gauges */
+}
+
+.limit-text-container {
+  text-align: center;
+}
+
+.limit-text {
+  font-size: 18px;
+  color: red;
+}
+
 
 .input {
   padding: 8px;
@@ -111,6 +167,14 @@ html, body {
   position: relative;
 }
 
+.switchStyles {
+  display: flex;
+  align-items: center; /* Vertically center the content */
+  justify-content: center; /* Horizontally center the content */
+  padding-top: 2%;
+  padding-bottom: 2%;
+}
+
 .fill {
   position: absolute;
   bottom: 0;
@@ -118,5 +182,7 @@ html, body {
   right: 0;
   background-color: blue;
   border-radius: 8px;
-  transition: height 0.5s; /* Adjust the transition duration as needed */
+  transition: height 0.4s; /* Adjust the transition duration as needed */
 }
+
+
