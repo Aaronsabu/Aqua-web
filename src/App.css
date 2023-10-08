@@ -186,3 +186,80 @@ html, body {
 }
 
 
+                         /* SHOWER */
+
+.toggle-container {
+  display: flex;
+  padding-top: 2%;
+  flex-direction: column;
+  align-items: center;
+}
+
+.toggle-item {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  margin-top: 1.5%;
+}
+
+.toggle-label {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.toggle-text {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 10px;
+}
+
+/* Hide the default checkbox input */
+.toggle-label input {
+  display: none;
+}
+
+/* Style the slider */
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+                                 
+/* Style the slider's background when in the "On" state */
+.toggle-label input:checked + .toggle-slider {
+  background-color: #2196F3;
+}
+
+/* Style the slider's circle knob */
+.toggle-slider:before {
+  position: absolute;
+  content: '';
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.4s;
+}
+
+.react-switch {
+  margin-left: 10px;
+}
+
+/* Move the circle knob to the "On" position */
+.toggle-label input:checked + .toggle-slider:before {
+  transform: translateX(26px);
+}
+
+
+
