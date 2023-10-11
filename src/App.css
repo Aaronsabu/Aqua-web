@@ -24,6 +24,17 @@ html, body {
   background-color: transparent;
   border: 2px solid grey;
   border-radius: 20px; /* Grey outline */
+  font-size: larger;
+  color: aqua; /* Blue text */
+  padding: 10px 20px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.btn-custom-sub {
+  background-color: transparent;
+  border: 2px solid grey;
+  border-radius: 20px; /* Grey outline */
   color: aqua; /* Blue text */
   padding: 10px 20px;
   margin: 5px;
@@ -34,10 +45,15 @@ html, body {
 .button-container {
   display: flex;
   justify-content:space-between; /* Space between buttons */
+  padding-top: 2%;
 }
 
 .btn-custom.control-button {
   margin-left: 30px; /* Adjust this value as needed */
+}
+
+.additional-buttons {
+  padding-top: 2%;
 }
 
 .input-container {
@@ -63,6 +79,46 @@ html, body {
   margin-bottom: 5px;
   color: aqua;
 }
+
+/* App.css */
+
+.monitor-container {
+  display: flex;
+  background-color: black;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 5%px;
+}
+
+.monitor-heading {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.gauge-container {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  width: 100%;
+}
+
+.gauge {
+  padding: 2%;
+  text-align: center; /* Add spacing between gauges */
+}
+
+.limit-text-container {
+  text-align: center;
+}
+
+.limit-text {
+  font-size: 18px;
+  color: red;
+}
+
 
 .input {
   padding: 8px;
@@ -111,6 +167,14 @@ html, body {
   position: relative;
 }
 
+.switchStyles {
+  display: flex;
+  align-items: center; /* Vertically center the content */
+  justify-content: center; /* Horizontally center the content */
+  padding-top: 2%;
+  padding-bottom: 2%;
+}
+
 .fill {
   position: absolute;
   bottom: 0;
@@ -118,5 +182,84 @@ html, body {
   right: 0;
   background-color: blue;
   border-radius: 8px;
-  transition: height 0.5s; /* Adjust the transition duration as needed */
+  transition: height 0.4s; /* Adjust the transition duration as needed */
 }
+
+
+                         /* SHOWER */
+
+.toggle-container {
+  display: flex;
+  padding-top: 2%;
+  flex-direction: column;
+  align-items: center;
+}
+
+.toggle-item {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  margin-top: 1.5%;
+}
+
+.toggle-label {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.toggle-text {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 10px;
+}
+
+/* Hide the default checkbox input */
+.toggle-label input {
+  display: none;
+}
+
+/* Style the slider */
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+                                 
+/* Style the slider's background when in the "On" state */
+.toggle-label input:checked + .toggle-slider {
+  background-color: #2196F3;
+}
+
+/* Style the slider's circle knob */
+.toggle-slider:before {
+  position: absolute;
+  content: '';
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.4s;
+}
+
+.react-switch {
+  margin-left: 10px;
+}
+
+/* Move the circle knob to the "On" position */
+.toggle-label input:checked + .toggle-slider:before {
+  transform: translateX(26px);
+}
+
+
+
