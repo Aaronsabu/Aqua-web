@@ -31,7 +31,7 @@ function Garden() {
 
   const overrideToggleChange = () => {
     const newShowerValue = !overrideTap;
-    set(ref(db, 'overrideTap'), newShowerValue ? 1 : 0); // Send 1 if on, 0 if off
+    set(ref(db, 'overrideGarden'), newShowerValue ? 1 : 0); // Send 1 if on, 0 if off
     setOverrideTap(newShowerValue);
   };
 
