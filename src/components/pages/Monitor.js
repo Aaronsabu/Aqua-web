@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import logo from '../images/AQUA.png';
 import { db } from '../firebase/config';
 import { ref, onValue } from 'firebase/database';
-import GaugeChart from 'react-gauge-chart'
+import GaugeChart from 'react-gauge-chart';
+import '../../../src/App.css'; 
 
 function Monitor() {
   const [data, setData] = useState({ FlowRate: 0, TotalMilliLitres: 0 });
@@ -14,47 +15,54 @@ function Monitor() {
       console.log('flow: ', data.FlowRate);
       console.log(data);
       setData(data);
+
+      if (data.TotalMilliLitres > 3500) {
+        alert('Your daily consumption limit has exceeded!');
+      }
     });
   }, []);
 
   const limit = () => {
     if (data.TotalMilliLitres > 3500) {
-      return <p style={{color: 'red'}}>Your daily consumption limit has exceeded!</p>;
+      return <p className="limit-text">Your daily consumption limit has exceeded!</p>;
     }
   };
 
   return (
-    <div className="home-div">
+    <div className="monitor-container">
       <img src={logo} alt="aqua" className="img" />
-      <h1 className='para'>REAL TIME MONITOR</h1>
-      <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginRight: '20px' }}>
-          <p style={{color: '#00FFFF'}} >Flow Rate</p>
+      <h1 className='heading'>REAL TIME MONITOR</h1>
+      <div className="gauge-container">
+        <div className='gauge'>
+          <p style={{ color: '#00FFFF', fontSize: 20 }}>Flow Rate</p>
           <GaugeChart
             id="gauge-chart1"
             nrOfLevels={420}
             arcsLength={[0.9]}
             colors={['#00FFFF']}
-            percent={data.FlowRate / 100} // Adjust this based on your data scale
+            percent={data.FlowRate / 1000} // Adjust this based on your data scale
             arcPadding={0.02}
             formatTextValue={() => ''}
           />
-          <p style={{color: '#00FFFF'}}>{data.FlowRate} ml/min</p>
+          <p style={{ color: '#00FFFF' }}>{data.FlowRate} ml/min</p>
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <p style={{color: '#00FFFF'}} >Total Consumption</p>
+
+        <div className='gauge'>
+          <p style={{ color: '#00FFFF', fontSize: 20 }}>Total Consumption</p>
           <GaugeChart
             id="gauge-chart2"
             nrOfLevels={420}
-            arcsLength={[0.7,0.3]}
+            arcsLength={[0.7, 0.3]}
             colors={['#00FFFF', '#EA4228']}
             percent={data.TotalMilliLitres / 5000} // Adjust this based on your data scale
             arcPadding={0.01}
             formatTextValue={() => ''}
           />
-          <p style={{color: '#00FFFF'}}>{data.TotalMilliLitres} ml/min</p>
-          {limit()}
+          <p style={{ color: '#00FFFF' }}>{data.TotalMilliLitres} ml/min</p>
         </div>
+      </div>
+      <div className="limit-text-container">
+        {limit()}
       </div>
     </div>
   );
