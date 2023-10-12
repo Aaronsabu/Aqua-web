@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import logo from '../images/AQUA.png';
 import { db } from '../firebase/config';
-import { ref, set } from 'firebase/database';
+import { ref, set, onValue } from 'firebase/database';
 import Switch from 'react-switch';
 
 function Spout() {
@@ -39,7 +39,17 @@ function Spout() {
     set(ref(db, 'overrideSpout'), newShowerValue ? 1 : 0); // Send 1 if on, 0 if off
     setOverride(newShowerValue);
   };
+  
+  useEffect(() => {
+    const starCountRef = ref(db);
+    onValue(starCountRef, (snapshot) => {
+      const data = snapshot.val();
 
+      if (data.TotalMilliLitres > 3500) {
+        alert('Your daily water consumption limit has exceeded!');
+      }
+    });
+  }, []);
 
   return (
     <div className="home-div">
