@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import logo from '../images/AQUA.png';
 import { db } from '../firebase/config';
-import { ref, set } from 'firebase/database';
+import { ref, set, onValue } from 'firebase/database';
 import Switch from 'react-switch';
 
 function Garden() {
@@ -9,6 +9,19 @@ function Garden() {
   const [tap2, setTap2] = useState(false);
   const [tap3, setTap3] = useState(false);
   const [overrideTap, setOverrideTap] = useState(false);
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    const starCountRef = ref(db);
+    onValue(starCountRef, (snapshot) => {
+      const data = snapshot.val();
+      setData(data);
+
+      if (data.TotalMilliLitres > 3500) {
+        alert('Your daily water consumption limit has exceeded!');
+      }
+    });
+  }, []);
 
 
   const handleToggleChange1 = () => {
