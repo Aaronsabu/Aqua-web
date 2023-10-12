@@ -12,7 +12,6 @@ function Billing() {
   const [ComparebillAmount, setCompareBillAmount] = useState(null);
   const [compareValue, setCompareValue] = useState('');
   const [compareData, setCompareData] = useState(null);
-  const [comparePressed, setComparePressed] = useState(false);
   const [showCompareInput, setShowCompareInput] = useState(false);
   const [comparisonText, setComparisonText] = useState('');
 
@@ -87,6 +86,17 @@ function Billing() {
         .catch((error) => console.log(error));
     }
   }, [billAmount]);
+
+  useEffect(() => {
+    const starCountRef = ref(db);
+    onValue(starCountRef, (snapshot) => {
+      const data = snapshot.val();
+
+      if (data.TotalMilliLitres > 3500) {
+        alert('Your daily water consumption limit has exceeded!');
+      }
+    });
+  }, []);
 
   return (
     <div className="home-div">
