@@ -66,6 +66,10 @@ function Rain() {
     margin: '10px',
   };
 
+  const calculatePercentage = (tankValue) => {
+    return (20 - tankValue) * 5; // Assuming tankValue ranges from 0 to 20
+  };
+
   return (
     <div className="home-div">
       <img src={logo} alt="aqua" className="img" />
@@ -73,13 +77,13 @@ function Rain() {
       <div style={tanksContainerStyles}>
         <div style={tankStyles}>
           <p className='para'>Rain water tank level</p>
-          <Tank percentage={(data['rainTank ']/20)*100} />
-          <p className='para'>{(data['rainTank ']/20)*100}%</p>
+          <Tank percentage={calculatePercentage(data['rainTank '])} />
+          <p className='para'>{calculatePercentage(data['rainTank '])}%</p>
         </div>
         <div style={tankStyles}>
           <p className='para'>Corporation tank level</p>
-          <Tank percentage={(data.mainTank/20)*100} />
-          <p className='para'>{(data.mainTank/20)*100}%</p>
+          <Tank percentage={calculatePercentage(data.mainTank)} />
+          <p className='para'>{calculatePercentage(data.mainTank)}%</p>
         </div>
       </div>
       <div className='switchStyles'>
