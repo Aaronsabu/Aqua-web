@@ -35,6 +35,17 @@ function Rain() {
     });
   }, []);
 
+  useEffect(() => {
+    const starCountRef = ref(db);
+    onValue(starCountRef, (snapshot) => {
+      const data = snapshot.val();
+
+      if (data.TotalMilliLitres > 3500) {
+        alert('Your daily water consumption limit has exceeded!');
+      }
+    });
+  }, []);
+
 
   const labelStyles = {
     fontSize: '16px',
@@ -62,13 +73,13 @@ function Rain() {
       <div style={tanksContainerStyles}>
         <div style={tankStyles}>
           <p className='para'>Rain water tank level</p>
-          <Tank percentage={data['rainTank ']} />
-          <p className='para'>{data['rainTank ']}%</p>
+          <Tank percentage={(data['rainTank ']/20)*100} />
+          <p className='para'>{(data['rainTank ']/20)*100}%</p>
         </div>
         <div style={tankStyles}>
           <p className='para'>Corporation tank level</p>
-          <Tank percentage={data.mainTank} />
-          <p className='para'>{data.mainTank}%</p>
+          <Tank percentage={(data.mainTank/20)*100} />
+          <p className='para'>{(data.mainTank/20)*100}%</p>
         </div>
       </div>
       <div className='switchStyles'>
